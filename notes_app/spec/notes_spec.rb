@@ -3,11 +3,24 @@ require "pry"
 
 describe 'Notes program' do
 
-  describe '#Create Note' do
-    note = Notes.new
-    expect(subject.create_new("title", "Body")).to eq @note_hash
+  it 'Adds a new note and lists it' do
+    notes = Notes.new
+    notes.create_new("title", "body")
+    expect(notes.list).to eq "title"
   end
 
+  it 'Adds another note and lists them' do
+    notes = Notes.new
+    notes.create_new("One", "body")
+    notes.create_new("Two", "body")
+    expect(notes.list).to eq "One\nTwo"
+  end
 
+  it "selected note shows body" do
+    notes = Notes.new
+    notes.create_new("One", "body")
+    notes.create_new("Two", "body")
+    expect(notes.view("One")).to eq "body"
+  end
 
 end
